@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from store.models import Product
+from django.db.models import Q
 
 # Create your views here.
 def say_hello(request):
@@ -9,7 +10,11 @@ def say_hello(request):
     for product in products:
        print(product)
 
-    producty = Product.objects.filter(price__lt=6)
+    producty = Product.objects.filter(price__gt=6, pk=1)
+    for p in producty:
+        print(p)
+        
+    producty = Product.objects.filter(Q(price__gt=6) | Q(pk=1))
     for p in producty:
         print(p)
 
