@@ -13,6 +13,7 @@ class Collection(models.Model):
 class Product(models.Model):
     collection = models.ForeignKey(Collection, on_delete=models.PROTECT)
     title = models.CharField(max_length=255)
+    slug = models.SlugField()
     description = models.TextField()
     price = models.DecimalField(max_digits=6, decimal_places=2)
     inventory = models.IntegerField()
@@ -35,6 +36,12 @@ class Customer(models.Model):
     birthdate = models.DateField(null=True)
     membership = models.CharField(max_length=1, choices=MEMBERSHIP_CHOICES, default=MEMBERSHIP_BRONZE)
 
+    class Meta:
+        db_table = 'store_customer' # Name table
+        indexes = [
+            models.Index(fields=['last_name', 'first_name'])
+        ]   # Create indexes to speed up the search in the fields
+
 class Order(models.Model):
     placed_at = models.DateTimeField(auto_now=True)
     PS_PENDING = 'P'
@@ -53,6 +60,7 @@ class Address(models.Model):
     city = models.CharField(max_length=255)
     #customer = models.OneToOneField(Customer, on_delete=models.CASCADE, primary_key=True)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    zip_code = models.CharField(max_length=7, null=True)
 
 class OrderItem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.PROTECT)
