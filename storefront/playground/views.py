@@ -4,8 +4,18 @@ from store.models import Product
 
 # Create your views here.
 def say_hello(request):
-    query_set = Product.objects.all()
+    products = Product.objects.all()
 
-    for product in query_set:
-        print(product)
-    return render(request, 'hello.html', {'name': 'Marcel'})
+    for product in products:
+       print(product)
+
+    producty = Product.objects.filter(price__lt=6)
+    for p in producty:
+        print(p)
+
+    if (Product.objects.filter(pk=1).exists()):
+        productx = Product.objects.filter(pk=1)
+        print(productx)
+        
+    
+    return render(request, 'hello.html', {'name': 'Marcel', 'products': producty})
