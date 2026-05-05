@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="eng">
+    <head>
+        <title>MyPage</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        
+    </head>
+    <body>
+        {% if products|length > 1 %}
+        <h1>All Products</h1>
+        <table>
+            <tr>
+                <th>Title</th>
+                <th>slug</th>
+                <th>description</th>
+                <th>price</th>
+                <th>inventory</th>
+                <th>last_update</th>
+                <th>promotion_description</th>
+                <th>collection_title</th>
+            </tr>
+            {% for product in products %}
+            <tr>
+                <td>{{product.title}}</td>
+                <td>{{product.slug}}</td>
+                <td>{{product.description}}</td>
+                <td>{{product.price}}</td>
+                <td>{{product.inventory}}</td>
+                <td>{{product.last_update}}</td>
+                <td>{{product.promotion.description}}</td>
+                <td>{{product.collection.title}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+            <h1>There are no products</h1>
+        {% endif %}
+    </body>
+</html>

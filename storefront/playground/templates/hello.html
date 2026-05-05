@@ -1,22 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hello</title>
 </head>
+
 <body>
     {% if name %}
     <h1>Hello, {{name}}!</h1>
     {% else %}
     <h1>Hello, World!</h1>
     {% endif %}
-    <ul>
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Price</th>
+            <th>Last update</th>
+        </tr>
         {% for product in products %}
-        <li>{{product.title}}</li>
-        <li>{{product.price}}</li>
-        <li>{{product.last_update}}</li>
+        <tr>
+            <td>{{ product.title }}</td>
+            <td>{{ product.price }}</td>
+            <td>{{ product.last_update }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <ul>
+        {% for limitedproductsvalue in limitedproductsvalues %}
+        <li>
+            {{limitedproductsvalue}}
+        </li>
         {% endfor %}
     </ul>
 </body>
+
 </html>
